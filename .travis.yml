@@ -1,0 +1,5 @@
+language: c
+install: 
+  - sudo apt-get install gtk2.0
+compiler: gcc
+script: make && ./main
