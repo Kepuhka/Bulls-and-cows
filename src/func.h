@@ -7,6 +7,7 @@ enum
     N_COLUMNS
 };
 
+const int *number_rand;
 GtkWidget *list;
 
 void destroy(GtkWidget *widget, gpointer data);
@@ -16,5 +17,6 @@ void append_item(GtkWidget *widget, gpointer entry);
 void init_list(GtkWidget *list);
 void number_settings(GtkMenuItem *menu_item, gpointer data);
 void close_settings(GtkWidget *widget, gpointer data);
+int number_game(int a[], int b[], int num);
 
 #endif

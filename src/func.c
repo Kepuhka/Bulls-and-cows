@@ -2,6 +2,7 @@
 #include <libintl.h>
 #include "func.h"
 #include <stdlib.h>
+#include <time.h>
 
 void destroy(GtkWidget *widget, gpointer data)
 {
@@ -55,17 +56,11 @@ void number_activate(GtkMenuItem *menu_item, gpointer data)
     gtk_widget_show_all(window);
 }
 
-void number_settings(GtkMenuItem *menu_item, gpointer data)
-{
-    int num = gtk_spin_button_get_value(GTK_SPIN_BUTTON((GtkWidget *)data));
-    printf("%d\n", num);
-}
-
 void word_activate(GtkMenuItem *menu_item, gpointer data)
 {
     GtkWidget *window;
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(window), "Игра с числами");
+    gtk_window_set_title(GTK_WINDOW(window), "Игра со словами");
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     gtk_window_set_default_size(GTK_WINDOW(window), 300, 200);
     gtk_window_set_keep_above(GTK_WINDOW(window), TRUE);
@@ -98,4 +93,27 @@ void init_list(GtkWidget *list)
     store = gtk_list_store_new(N_COLUMNS, G_TYPE_STRING);
     gtk_tree_view_set_model(GTK_TREE_VIEW(list), GTK_TREE_MODEL(store));
     g_object_unref(store);
+}
+
+void number_generate(int a[], int num)
+{
+    int i, j;
+    srand(time(NULL));
+    for(i = 0; i < num; i++) {
+        a[i] = (rand() % 10);
+        for(j = 0; j < num; j++) {
+            if(a[i] == a[j] && i != j) {
+                i--;
+                break;
+            }
+        }
+    }
+    number_rand = a;
+}
+
+void number_settings(GtkMenuItem *menu_item, gpointer data)
+{
+    int num = gtk_spin_button_get_value(GTK_SPIN_BUTTON((GtkWidget *)data));
+    int a[num], i;
+    number_generate(a, num);
 }
