@@ -10,7 +10,6 @@ int main(int argc, char *argv[])
     GtkWidget *button_ok;
     GtkWidget *label;
     GtkWidget *sw;
-    GtkWidget *entry;
     GtkWidget *menubar;
     GtkWidget *game_menu, *game_m;
     GtkWidget *settingMenu, *setting;
@@ -28,7 +27,8 @@ int main(int argc, char *argv[])
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), "Bulls and cows");
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-    gtk_window_set_default_size(GTK_WINDOW(window), 300, 200);
+    gtk_window_set_default_size(GTK_WINDOW(window), 330, 400);
+    gtk_container_set_border_width(GTK_CONTAINER(window), 5);
 
     sw = gtk_scrolled_window_new(NULL, NULL);
     list = gtk_tree_view_new();
@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
     button_ok = gtk_button_new_with_label("OK");
     entry = gtk_entry_new();
     gtk_widget_set_size_request(entry, 120, 35);
+    gtk_widget_set_size_request(button_ok, 130, 35);
 
     menubar = gtk_menu_bar_new();
     game_menu = gtk_menu_new();
@@ -71,12 +72,12 @@ int main(int argc, char *argv[])
     gtk_menu_shell_append(GTK_MENU_SHELL(game_menu), quitMi);
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), game_m);
 
-    gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, TRUE, 3);
-    gtk_box_pack_start(GTK_BOX(hbox), entry, FALSE, TRUE, 3);
-    gtk_box_pack_start(GTK_BOX(hbox), button_ok, FALSE, TRUE, 3);
+    gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(hbox), entry, FALSE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(hbox), button_ok, FALSE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
-    gtk_box_pack_start(GTK_BOX(vbox), sw, TRUE, TRUE, 5);
-    gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 3);
+    gtk_box_pack_start(GTK_BOX(vbox), sw, TRUE, TRUE, 4);
+    gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 5);
 
     gtk_container_add(GTK_CONTAINER(window), vbox);
 
