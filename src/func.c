@@ -103,11 +103,10 @@ int number_splitting(const char *str, int number_user[])
             number_user[count] = str[i] - '0';
             count++;
         }
-    }
-
-    if (count > num_length || count < num_length)
-    {
-        return 1;
+        else
+        {
+            return 1;
+        }
     }
 
     for (i = 0; i < num_length; i++)
@@ -128,10 +127,11 @@ void append_item_number(GtkWidget *widget, gpointer entry)
     GtkListStore *store;
     GtkTreeIter iter;
     const char *str = gtk_entry_get_text(entry);
-    char str2[] = ": Быков *, коров *";
+    const char str2[] = ": Быков *, коров *";
     char str3[50] = "\0";
-    char str4[] = "Вы выиграли!";
+    const char str4[] = "Вы выиграли!";
     int number_user[num_length];
+
     struct result
     {
         int bull;
@@ -200,7 +200,7 @@ void game_number(int a[], int b[], int *bull, int *cow)
     }
 }
 
-void string(const char *str, char str2[], char str3[], int bull, int cow)
+void string(const char *str, const char str2[], char str3[], int bull, int cow)
 {
     int i;
     for (i = 0; i < num_length; i++)
