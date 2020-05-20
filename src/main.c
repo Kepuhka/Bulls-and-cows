@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
     quitMi = gtk_menu_item_new_with_label("Выход");
     num = gtk_menu_item_new_with_label("Игра с числами");
     word = gtk_menu_item_new_with_label("Игра со словами");
-    
+
     help_menu = gtk_menu_new();
     help_m = gtk_menu_item_new_with_label("Помощь");
     rulesMi = gtk_menu_item_new_with_label("Правила");

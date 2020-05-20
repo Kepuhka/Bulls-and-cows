@@ -4,7 +4,7 @@
 enum
 {
     LIST_ITEM = 0,
-    N_COLUMNS 
+    N_COLUMNS
 };
 
 int *number_user;

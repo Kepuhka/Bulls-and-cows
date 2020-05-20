@@ -37,10 +37,10 @@ void number_activate(GtkMenuItem *menu_item, gpointer data)
     label_1 = gtk_label_new("Введите длину числа от 3 до 7");
     label_2 = gtk_label_new("Длина числа:");
     button = gtk_button_new_with_label("OK");
-    spinner_adj = (GtkAdjustment *) gtk_adjustment_new (3.0, 3.0, 7.0, 1.0, 1.0, 0);
+    spinner_adj = (GtkAdjustment *)gtk_adjustment_new(3.0, 3.0, 7.0, 1.0, 1.0, 0);
     spinner = gtk_spin_button_new(spinner_adj, 1.0, 0);
     gtk_widget_set_size_request(spinner, 90, 36);
-    
+
     gtk_box_pack_start(GTK_BOX(hbox), label_2, FALSE, TRUE, 3);
     gtk_box_pack_start(GTK_BOX(hbox), spinner, FALSE, TRUE, 3);
     gtk_box_pack_start(GTK_BOX(vbox), label_1, FALSE, TRUE, 3);
@@ -68,13 +68,16 @@ void word_activate(GtkMenuItem *menu_item, gpointer data)
 
 void number_generate()
 {
-    number_rand = malloc(sizeof(int)*num_length);
+    number_rand = malloc(sizeof(int) * num_length);
     int i, j;
     srand(time(NULL));
-    for(i = 0; i < num_length; i++) {
+    for (i = 0; i < num_length; i++)
+    {
         number_rand[i] = (rand() % 10);
-        for(j = 0; j < num_length; j++) {
-            if(number_rand[i] == number_rand[j] && i != j) {
+        for (j = 0; j < num_length; j++)
+        {
+            if (number_rand[i] == number_rand[j] && i != j)
+            {
                 i--;
                 break;
             }
@@ -93,28 +96,33 @@ int number_splitting(const char *str)
 {
     int count = 0;
     int i, j;
-    number_user = malloc(sizeof(int)*num_length);
-    for(i = 0; i < num_length; i++) {
-        if((str[i] >= '0') && (str[i] <= '9'))
+    number_user = malloc(sizeof(int) * num_length);
+    for (i = 0; i < num_length; i++)
+    {
+        if ((str[i] >= '0') && (str[i] <= '9'))
         {
-            number_user[count] = str[i]-'0';
+            number_user[count] = str[i] - '0';
             count++;
         }
     }
 
-    if(count > num_length || count < num_length) {
+    if (count > num_length || count < num_length)
+    {
         return 1;
     }
 
-    for(i = 0; i < num_length; i++) {
-        for(j = 0; j < num_length; j++) {
-            if(number_user[i] == number_user[j] && i != j) {
+    for (i = 0; i < num_length; i++)
+    {
+        for (j = 0; j < num_length; j++)
+        {
+            if (number_user[i] == number_user[j] && i != j)
+            {
                 return 1;
             }
         }
     }
     return 0;
-} 
+}
 
 void append_item_number(GtkWidget *widget, gpointer entry)
 {
@@ -128,13 +136,19 @@ void append_item_number(GtkWidget *widget, gpointer entry)
     char str3[50];
     char str4[] = "Вы выиграли!";
 
-    if(number_splitting(str) == 0) {
-        if(game_number(number_rand, number_user) == 0) {
+    if (number_splitting(str) == 0)
+    {
+        if (game_number(number_rand, number_user) == 0)
+        {
             gtk_list_store_set(store, &iter, LIST_ITEM, str4, -1);
-        } else {
+        }
+        else
+        {
             gtk_list_store_set(store, &iter, LIST_ITEM, string(str, str2, str3), -1);
         }
-    } else {
+    }
+    else
+    {
         const char *fail = "Число введено не правильно!";
         gtk_list_store_set(store, &iter, LIST_ITEM, fail, -1);
     }
@@ -163,43 +177,55 @@ int game_number(int a[], int b[])
 
     bull = 0;
     cow = 0;
-    for(i = 0; i < num_length; i++) {
-        for(j = 0; j < num_length; j++) {
-            if(a[i] == b[j] && i == j) {
+    for (i = 0; i < num_length; i++)
+    {
+        for (j = 0; j < num_length; j++)
+        {
+            if (a[i] == b[j] && i == j)
+            {
                 bull++;
             }
-            if(a[i] == b[j] && i != j) {
+            if (a[i] == b[j] && i != j)
+            {
                 cow++;
             }
         }
     }
 
-    if(bull == num_length) {
+    if (bull == num_length)
+    {
         return 0;
-    } else {
+    }
+    else
+    {
         return 1;
     }
 }
 
-char * string(const char *str, char str2[], char *str3)
+char *string(const char *str, char str2[], char *str3)
 {
     int i = 0, j = 0;
-    while(str[i] != '\0') {
+    while (str[i] != '\0')
+    {
         str3[i] = str[i];
         i++;
     }
 
     strcat(str3, str2);
     i = 0;
-    while(str3[i] != '\0') {
-        if(str3[i] == '*') {
+    while (str3[i] != '\0')
+    {
+        if (str3[i] == '*')
+        {
             str3[i] = bull + '0';
             break;
         }
         i++;
     }
-    while(str3[i] != '\0') {
-        if(str3[i] == '*') {
+    while (str3[i] != '\0')
+    {
+        if (str3[i] == '*')
+        {
             str3[i] = cow + '0';
             break;
         }
