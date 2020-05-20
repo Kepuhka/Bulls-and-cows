@@ -92,11 +92,10 @@ void number_settings(GtkMenuItem *menu_item, gpointer data)
     number_generate();
 }
 
-int number_splitting(const char *str)
+int number_splitting(const char *str, int number_user[])
 {
     int count = 0;
     int i, j;
-    number_user = malloc(sizeof(int) * num_length);
     for (i = 0; i < num_length; i++)
     {
         if ((str[i] >= '0') && (str[i] <= '9'))
@@ -132,6 +131,7 @@ void append_item_number(GtkWidget *widget, gpointer entry)
     char str2[] = ": Быков *, коров *";
     char str3[50] = "\0";
     char str4[] = "Вы выиграли!";
+    int number_user[num_length];
     struct result
     {
         int bull;
@@ -141,7 +141,7 @@ void append_item_number(GtkWidget *widget, gpointer entry)
     store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(list)));
     gtk_list_store_append(store, &iter);
 
-    if (number_splitting(str) == 0)
+    if (number_splitting(str, number_user) == 0)
     {
         game_number(number_rand, number_user, &num.bull, &num.cow);
         if (num.bull == num_length)
