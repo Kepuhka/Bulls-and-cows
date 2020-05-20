@@ -24,5 +24,7 @@ int number_splitting(const char *str, int number_user[]);
 void number_generate();
 void game_number(int a[], int b[], int *bull, int *cow);
 void string(const char *str, const char str2[], char str3[], int bull, int cow);
+char *open_file(int const num);
+void processing_words(GtkWidget *button, gpointer data);
 
 #endif
