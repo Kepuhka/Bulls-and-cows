@@ -57,13 +57,34 @@ void number_activate(GtkMenuItem *menu_item, gpointer data)
 void word_activate(GtkMenuItem *menu_item, gpointer data)
 {
     GtkWidget *window;
+    GtkWidget *vbox, *hbox;
+    GtkWidget *label;
+    GtkWidget *button_2words, *button_3words;
+
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), "Игра со словами");
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-    gtk_window_set_default_size(GTK_WINDOW(window), 300, 200);
+    gtk_window_set_default_size(GTK_WINDOW(window), 250, 80);
+    gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
     gtk_window_set_keep_above(GTK_WINDOW(window), TRUE);
     gtk_window_set_modal(GTK_WINDOW(window), TRUE);
-    gtk_widget_show(window);
+    gtk_container_set_border_width(GTK_CONTAINER(window), 10);
+
+    vbox = gtk_vbox_new(FALSE, 3);
+    hbox = gtk_hbox_new(FALSE, 0);
+    label = gtk_label_new("Выберите длину слова:");
+    button_2words = gtk_button_new_with_label("2 буквы");
+    button_3words = gtk_button_new_with_label("3 буквы");
+    gtk_widget_set_size_request(button_2words, 100, 30);
+    gtk_widget_set_size_request(button_3words, 100, 30);
+
+    gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, TRUE, 3);
+    gtk_box_pack_start(GTK_BOX(hbox), button_2words, FALSE, FALSE, 8);
+    gtk_box_pack_start(GTK_BOX(hbox), button_3words, FALSE, FALSE, 8);
+    gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 3);
+
+    gtk_container_add(GTK_CONTAINER(window), vbox);
+    gtk_widget_show_all(window);
 }
 
 void number_generate()
