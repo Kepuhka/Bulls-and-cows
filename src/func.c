@@ -103,11 +103,10 @@ int number_splitting(const char *str, int number_user[])
             number_user[count] = str[i] - '0';
             count++;
         }
-    }
-
-    if (count > num_length || count < num_length)
-    {
-        return 1;
+        else
+        {
+            return 1;
+        }
     }
 
     for (i = 0; i < num_length; i++)
@@ -132,6 +131,7 @@ void append_item_number(GtkWidget *widget, gpointer entry)
     char str3[50] = "\0";
     char str4[] = "Вы выиграли!";
     int number_user[num_length];
+
     struct result
     {
         int bull;

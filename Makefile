@@ -2,17 +2,26 @@ UNAME=$(shell uname)
 
 CCFLAGS=-Wextra -Wredundant-decls -O3 `pkg-config --cflags --libs gtk+-2.0`
 CC=gcc
+OBJECT=number_splitting_test.o game_number_test.o
+DIR=cd build/test;
 
 all:
 	gcc src/*.c -o main `pkg-config --cflags --libs gtk+-2.0`
 
-test: object
+test: comp install
+
+comp: object
+	$(DIR)\
+	$(CC) $(LDFLAGS) $(OBJECT) main.o ../src/func.o -o test `pkg-config --cflags --libs gtk+-2.0`
+	
+install:
 	cd build/test;\
-	$(CC) $(LDFLAGS) main.o ../src/func.o game_number_test.o -o test `pkg-config --cflags --libs gtk+-2.0`
+	./test
 
 object: clean ctest/ctest.h
 	$(CC) $(CCFLAGS) -c -o build/test/main.o test/main.c
 	$(CC) $(CCFLAGS) -c -o build/test/game_number_test.o test/game_number_test.c
+	$(CC) $(CCFLAGS) -c -o build/test/number_splitting_test.o test/number_splitting_test.c
 	$(CC) $(CCFLAGS) -c -o build/src/func.o src/func.c
 
 clean:
