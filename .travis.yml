@@ -2,4 +2,7 @@ language: c
 install: 
   - sudo apt-get install gtk2.0
 compiler: gcc
-script: make
+script: 
+  - make
+  - make test
+  - build/test/test
