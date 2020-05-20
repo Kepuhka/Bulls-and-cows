@@ -24,6 +24,6 @@ void close_settings(GtkWidget *widget, gpointer data);
 int number_splitting(const char *str);
 void number_generate();
 void game_number(int a[], int b[], int *bull, int *cow);
-char *string(const char *str, char str2[], char str3[], int bull, int cow);
+void string(const char *str, char str2[], char str3[], int bull, int cow);
 
 #endif

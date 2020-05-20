@@ -150,7 +150,8 @@ void append_item_number(GtkWidget *widget, gpointer entry)
         }
         else
         {
-            gtk_list_store_set(store, &iter, LIST_ITEM, string(str, str2, str3, num.bull, num.cow), -1);
+            string(str, str2, str3, num.bull, num.cow);
+            gtk_list_store_set(store, &iter, LIST_ITEM, str3, -1);
         }
     }
     else
@@ -199,7 +200,7 @@ void game_number(int a[], int b[], int *bull, int *cow)
     }
 }
 
-char *string(const char *str, char str2[], char str3[], int bull, int cow)
+void string(const char *str, char str2[], char str3[], int bull, int cow)
 {
     int i;
     for (i = 0; i < num_length; i++)
@@ -227,5 +228,4 @@ char *string(const char *str, char str2[], char str3[], int bull, int cow)
         }
         i++;
     }
-    return str3;
 }
