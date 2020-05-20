@@ -56,10 +56,13 @@ void number_activate(GtkMenuItem *menu_item, gpointer data)
 
 void word_activate(GtkMenuItem *menu_item, gpointer data)
 {
+    gint size2 = 2;
+    gint size3 = 3;
+
     GtkWidget *window;
     GtkWidget *vbox, *hbox;
     GtkWidget *label;
-    GtkWidget *button_2words, *button_3words;
+    GtkWidget *button_3words, *button_4words;
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), "Игра со словами");
@@ -73,15 +76,20 @@ void word_activate(GtkMenuItem *menu_item, gpointer data)
     vbox = gtk_vbox_new(FALSE, 3);
     hbox = gtk_hbox_new(FALSE, 0);
     label = gtk_label_new("Выберите длину слова:");
-    button_2words = gtk_button_new_with_label("2 буквы");
     button_3words = gtk_button_new_with_label("3 буквы");
-    gtk_widget_set_size_request(button_2words, 100, 30);
+    button_4words = gtk_button_new_with_label("4 буквы");
     gtk_widget_set_size_request(button_3words, 100, 30);
+    gtk_widget_set_size_request(button_4words, 100, 30);
 
     gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, TRUE, 3);
-    gtk_box_pack_start(GTK_BOX(hbox), button_2words, FALSE, FALSE, 8);
     gtk_box_pack_start(GTK_BOX(hbox), button_3words, FALSE, FALSE, 8);
+    gtk_box_pack_start(GTK_BOX(hbox), button_4words, FALSE, FALSE, 8);
     gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 3);
+
+    g_signal_connect(G_OBJECT(button_3words), "clicked", G_CALLBACK(processing_words), "3");
+    g_signal_connect(G_OBJECT(button_3words), "clicked", G_CALLBACK(close_settings), window);
+    g_signal_connect(G_OBJECT(button_4words), "clicked", G_CALLBACK(processing_words), "4");
+    g_signal_connect(G_OBJECT(button_4words), "clicked", G_CALLBACK(close_settings), window);
 
     gtk_container_add(GTK_CONTAINER(window), vbox);
     gtk_widget_show_all(window);
@@ -253,4 +261,39 @@ char *string(const char *str, char str2[], char *str3)
         i++;
     }
     return str3;
+}
+char *open_file(int const sizeWord)
+{
+    const int size = 500;
+    FILE *fileLibrary;
+    char *buffer;
+    buffer = (char *)malloc(size * sizeof(char));
+    if (sizeWord == 3)
+    {
+        fileLibrary = fopen("src/LibraryFreeWords.txt", "r");
+        if (fileLibrary == NULL)
+            return NULL;
+
+        fgets(buffer, size, fileLibrary);
+        fclose(fileLibrary);
+    }
+
+    if (sizeWord == 4)
+    {
+        fileLibrary = fopen("src/LibraryFourWords.txt", "r");
+        if (fileLibrary == NULL)
+            return NULL;
+        fgets(buffer, size, fileLibrary);
+        fclose(fileLibrary);
+    }
+    return buffer;
+}
+
+void processing_words(GtkWidget *button, gpointer data)
+{
+    int sizeWord = 0;
+    sizeWord = atoi((char *)data);
+
+    printf("Num = %d\n", sizeWord);
+    char *result = open_file(sizeWord);
 }
