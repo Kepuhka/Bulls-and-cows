@@ -1,0 +1,3 @@
+*.o
+build/test/test
+main
