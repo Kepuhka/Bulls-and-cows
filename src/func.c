@@ -14,6 +14,14 @@ void close_settings(GtkWidget *widget, gpointer data)
     gtk_widget_destroy(data);
 }
 
+void settings(GtkWidget *widget, gpointer entry)
+{
+    if (game_settings == 0)
+        append_item_number(widget, entry);
+    else
+        append_item_word(widget, entry);
+}
+
 void number_activate(GtkMenuItem *menu_item, gpointer data)
 {
     GtkWidget *window;
@@ -86,9 +94,9 @@ void word_activate(GtkMenuItem *menu_item, gpointer data)
     gtk_box_pack_start(GTK_BOX(hbox), button_4words, FALSE, FALSE, 8);
     gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 3);
 
-    g_signal_connect(G_OBJECT(button_3words), "clicked", G_CALLBACK(processing_words), "3");
+    g_signal_connect(G_OBJECT(button_3words), "clicked", G_CALLBACK(word_settings), "3");
     g_signal_connect(G_OBJECT(button_3words), "clicked", G_CALLBACK(close_settings), window);
-    g_signal_connect(G_OBJECT(button_4words), "clicked", G_CALLBACK(processing_words), "4");
+    g_signal_connect(G_OBJECT(button_4words), "clicked", G_CALLBACK(word_settings), "4");
     g_signal_connect(G_OBJECT(button_4words), "clicked", G_CALLBACK(close_settings), window);
 
     gtk_container_add(GTK_CONTAINER(window), vbox);
@@ -118,7 +126,13 @@ void number_settings(GtkMenuItem *menu_item, gpointer data)
 {
     num_length = gtk_spin_button_get_value(GTK_SPIN_BUTTON((GtkWidget *)data));
     gtk_entry_set_max_length(GTK_ENTRY(entry), num_length);
+    game_settings = 0;
     number_generate();
+}
+
+void word_settings(GtkMenuItem *menu_item, gpointer data)
+{
+    game_settings = 1;
 }
 
 int number_splitting(const char *str, int number_user[])
@@ -189,6 +203,10 @@ void append_item_number(GtkWidget *widget, gpointer entry)
         gtk_list_store_set(store, &iter, LIST_ITEM, fail, -1);
     }
     gtk_entry_set_text(entry, "");
+}
+
+void append_item_word(GtkWidget *widget, gpointer entry)
+{
 }
 
 void init_list(GtkWidget *list)
