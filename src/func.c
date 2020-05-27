@@ -143,13 +143,11 @@ void word_settings(GtkMenuItem *menu_item, gpointer data)
     {
         buffer = reading_file(way_free_file);
         word_rand = strtok_string(buffer);
-        free(buffer);
     }
     if (num_length == 4)
     {
         buffer = reading_file(way_four_file);
         word_rand = strtok_string(buffer);
-        free(buffer);
     }
 
     game_settings = 1;
@@ -229,16 +227,32 @@ void append_item_word(GtkWidget *widget, gpointer entry)
 {
     GtkListStore *store;
     GtkTreeIter iter;
-
+    const char str2[] = ": Быков *, коров *";
+    char str3[50] = "\0";
+    const char str4[] = "Вы выиграли!";
     const char *str = gtk_entry_get_text(entry);
+
+    struct result
+    {
+        int bull;
+        int cow;
+    } num;
 
     store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(list)));
     gtk_list_store_append(store, &iter);
 
     if (check_user_word(str, num_length) == 0)
     {
-        const char *fail = "Слово введено правильно!";
-        gtk_list_store_set(store, &iter, LIST_ITEM, fail, -1);
+        word_comparison(word_rand, str, &num.bull, &num.cow);
+        if (num.bull == num_length)
+        {
+            gtk_list_store_set(store, &iter, LIST_ITEM, str4, -1);
+        }
+        else
+        {
+            string(str, str2, str3, num.bull, num.cow);
+            gtk_list_store_set(store, &iter, LIST_ITEM, str3, -1);
+        }
     }
     else
     {
@@ -383,4 +397,22 @@ int check_user_word(const char userWord[], const int num_length)
     }
 
     return 0;
+}
+
+void word_comparison(const char randomWord[], const char userWord[], int *bull, int *cow)
+{
+    unsigned int i, j;
+    *bull = 0;
+    *cow = 0;
+
+    for (i = 0; i < strlen(randomWord); i++)
+    {
+        for (j = 0; j < strlen(randomWord); j++)
+        {
+            if (randomWord[i] == userWord[j] && i == j)
+                (*bull)++;
+            if (randomWord[i] == userWord[j] && i != j)
+                (*cow)++;
+        }
+    }
 }

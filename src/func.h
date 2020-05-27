@@ -32,5 +32,6 @@ void string(const char *str, const char str2[], char str3[], int bull, int cow);
 char *reading_file(char *way);
 char *strtok_string(char *buffer);
 int check_user_word(const char userWord[], const int num_length);
+void word_comparison(const char randomWord[], const char userWord[], int *bull, int *cow);
 
 #endif

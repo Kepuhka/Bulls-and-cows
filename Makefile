@@ -2,7 +2,7 @@ UNAME=$(shell uname)
 
 CCFLAGS=-Wextra -Wredundant-decls -O3 `pkg-config --cflags --libs gtk+-2.0`
 CC=gcc
-OBJECT=number_splitting_test.o game_number_test.o string_test.o reading_file_test.o strtok_string_test.o check_user_word_test.o
+OBJECT=number_splitting_test.o game_number_test.o string_test.o reading_file_test.o strtok_string_test.o check_user_word_test.o word_comparison_test.o
 DIR=cd build/test;
 
 all:
@@ -27,6 +27,7 @@ object: clean ctest/ctest.h
 	$(CC) $(CCFLAGS) -c -o build/test/reading_file_test.o test/reading_file_test.c
 	$(CC) $(CCFLAGS) -c -o build/test/strtok_string_test.o test/strtok_string_test.c
 	$(CC) $(CCFLAGS) -c -o build/test/check_user_word_test.o test/check_user_word_test.c
+	$(CC) $(CCFLAGS) -c -o build/test/word_comparison_test.o test/word_comparison_test.c
 
 clean:
 	cd build/test;\
