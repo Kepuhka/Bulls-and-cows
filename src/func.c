@@ -14,6 +14,14 @@ void close_settings(GtkWidget *widget, gpointer data)
     gtk_widget_destroy(data);
 }
 
+void settings(GtkWidget *widget, gpointer entry)
+{
+    if (game_settings == 0)
+        append_item_number(widget, entry);
+    else
+        append_item_word(widget, entry);
+}
+
 void number_activate(GtkMenuItem *menu_item, gpointer data)
 {
     GtkWidget *window;
@@ -86,9 +94,9 @@ void word_activate(GtkMenuItem *menu_item, gpointer data)
     gtk_box_pack_start(GTK_BOX(hbox), button_4words, FALSE, FALSE, 8);
     gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 3);
 
-    g_signal_connect(G_OBJECT(button_3words), "clicked", G_CALLBACK(processing_words), "3");
+    g_signal_connect(G_OBJECT(button_3words), "clicked", G_CALLBACK(word_settings), "3");
     g_signal_connect(G_OBJECT(button_3words), "clicked", G_CALLBACK(close_settings), window);
-    g_signal_connect(G_OBJECT(button_4words), "clicked", G_CALLBACK(processing_words), "4");
+    g_signal_connect(G_OBJECT(button_4words), "clicked", G_CALLBACK(word_settings), "4");
     g_signal_connect(G_OBJECT(button_4words), "clicked", G_CALLBACK(close_settings), window);
 
     gtk_container_add(GTK_CONTAINER(window), vbox);
@@ -118,7 +126,33 @@ void number_settings(GtkMenuItem *menu_item, gpointer data)
 {
     num_length = gtk_spin_button_get_value(GTK_SPIN_BUTTON((GtkWidget *)data));
     gtk_entry_set_max_length(GTK_ENTRY(entry), num_length);
+    game_settings = 0;
     number_generate();
+}
+
+void word_settings(GtkMenuItem *menu_item, gpointer data)
+{
+    char *buffer;
+    char way_free_file[] = "src/LibraryFreeWords.txt";
+    char way_four_file[] = "src/LibraryFourWords.txt";
+
+    num_length = atoi((char *)data);
+    gtk_entry_set_max_length(GTK_ENTRY(entry), num_length);
+
+    if (num_length == 3)
+    {
+        buffer = reading_file(way_free_file);
+        word_rand = strtok_string(buffer);
+        free(buffer);
+    }
+    if (num_length == 4)
+    {
+        buffer = reading_file(way_four_file);
+        word_rand = strtok_string(buffer);
+        free(buffer);
+    }
+
+    game_settings = 1;
 }
 
 int number_splitting(const char *str, int number_user[])
@@ -191,6 +225,10 @@ void append_item_number(GtkWidget *widget, gpointer entry)
     gtk_entry_set_text(entry, "");
 }
 
+void append_item_word(GtkWidget *widget, gpointer entry)
+{
+}
+
 void init_list(GtkWidget *list)
 {
     GtkCellRenderer *renderer;
@@ -259,38 +297,41 @@ void string(const char *str, const char str2[], char str3[], int bull, int cow)
     }
 }
 
-char *open_file(int const sizeWord)
+char *reading_file(char *way)
 {
-    const int size = 500;
     FILE *fileLibrary;
+
+    fileLibrary = fopen(way, "r");
+    if (fileLibrary == NULL)
+        return NULL;
+
+    const int size = 200;
     char *buffer;
     buffer = (char *)malloc(size * sizeof(char));
-    if (sizeWord == 3)
-    {
-        fileLibrary = fopen("src/LibraryFreeWords.txt", "r");
-        if (fileLibrary == NULL)
-            return NULL;
-
-        fgets(buffer, size, fileLibrary);
-        fclose(fileLibrary);
-    }
-
-    if (sizeWord == 4)
-    {
-        fileLibrary = fopen("src/LibraryFourWords.txt", "r");
-        if (fileLibrary == NULL)
-            return NULL;
-        fgets(buffer, size, fileLibrary);
-        fclose(fileLibrary);
-    }
+    char *n = fgets(buffer, size, fileLibrary);
+    fclose(fileLibrary);
     return buffer;
 }
 
-void processing_words(GtkWidget *button, gpointer data)
+char *strtok_string(char *buffer)
 {
-    int sizeWord = 0;
-    sizeWord = atoi((char *)data);
+    char *istr;
 
-    printf("Num = %d\n", sizeWord);
-    char *result = open_file(sizeWord);
+    char separator[2] = ",";
+    int i;
+
+    srand(time(NULL));
+    int random = rand() % 34;
+
+    istr = strtok(buffer, separator);
+
+    if (random > 1)
+        for (i = 0; i < random - 1; i++)
+        {
+            if (istr != NULL)
+            {
+                istr = strtok(NULL, separator);
+            }
+        }
+    return istr;
 }

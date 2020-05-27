@@ -7,7 +7,9 @@ enum
     N_COLUMNS
 };
 
+int game_settings;
 int *number_rand;
+char *word_rand;
 int num_length;
 
 GtkWidget *list;
@@ -15,16 +17,19 @@ GtkWidget *entry;
 
 void destroy(GtkWidget *widget, gpointer data);
 void number_activate(GtkMenuItem *menu_item, gpointer data);
+void settings(GtkWidget *widget, gpointer entry);
 void word_activate(GtkMenuItem *menu_item, gpointer data);
 void append_item_number(GtkWidget *widget, gpointer entry);
+void append_item_word(GtkWidget *widget, gpointer entry);
 void init_list(GtkWidget *list);
 void number_settings(GtkMenuItem *menu_item, gpointer data);
+void word_settings(GtkMenuItem *menu_item, gpointer data);
 void close_settings(GtkWidget *widget, gpointer data);
 int number_splitting(const char *str, int number_user[]);
 void number_generate();
 void game_number(int a[], int b[], int *bull, int *cow);
 void string(const char *str, const char str2[], char str3[], int bull, int cow);
-char *open_file(int const num);
-void processing_words(GtkWidget *button, gpointer data);
+char *reading_file(char *way);
+char *strtok_string(char *buffer);
 
 #endif
