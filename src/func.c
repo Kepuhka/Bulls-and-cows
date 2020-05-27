@@ -132,6 +132,23 @@ void number_settings(GtkMenuItem *menu_item, gpointer data)
 
 void word_settings(GtkMenuItem *menu_item, gpointer data)
 {
+    char *buffer;
+    char way_free_file[] = "src/LibraryFreeWords.txt";
+    char way_four_file[] = "src/LibraryFourWords.txt";
+
+    num_length = atoi((char *)data);
+    gtk_entry_set_max_length(GTK_ENTRY(entry), num_length);
+
+    if (num_length == 3)
+    {
+        buffer = reading_file(way_free_file);
+    }
+    if (num_length == 4)
+    {
+        buffer = reading_file(way_four_file);
+    }
+    free(buffer);
+
     game_settings = 1;
 }
 
@@ -277,38 +294,18 @@ void string(const char *str, const char str2[], char str3[], int bull, int cow)
     }
 }
 
-char *open_file(int const sizeWord)
+char *reading_file(char *way)
 {
-    const int size = 500;
     FILE *fileLibrary;
+
+    fileLibrary = fopen(way, "r");
+    if (fileLibrary == NULL)
+        return NULL;
+
+    const int size = 200;
     char *buffer;
     buffer = (char *)malloc(size * sizeof(char));
-    if (sizeWord == 3)
-    {
-        fileLibrary = fopen("src/LibraryFreeWords.txt", "r");
-        if (fileLibrary == NULL)
-            return NULL;
-
-        fgets(buffer, size, fileLibrary);
-        fclose(fileLibrary);
-    }
-
-    if (sizeWord == 4)
-    {
-        fileLibrary = fopen("src/LibraryFourWords.txt", "r");
-        if (fileLibrary == NULL)
-            return NULL;
-        fgets(buffer, size, fileLibrary);
-        fclose(fileLibrary);
-    }
+    char *n = fgets(buffer, size, fileLibrary);
+    fclose(fileLibrary);
     return buffer;
-}
-
-void processing_words(GtkWidget *button, gpointer data)
-{
-    int sizeWord = 0;
-    sizeWord = atoi((char *)data);
-
-    printf("Num = %d\n", sizeWord);
-    char *result = open_file(sizeWord);
 }
