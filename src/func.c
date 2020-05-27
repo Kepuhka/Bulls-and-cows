@@ -142,12 +142,15 @@ void word_settings(GtkMenuItem *menu_item, gpointer data)
     if (num_length == 3)
     {
         buffer = reading_file(way_free_file);
+        word_rand = strtok_string(buffer);
+        free(buffer);
     }
     if (num_length == 4)
     {
         buffer = reading_file(way_four_file);
+        word_rand = strtok_string(buffer);
+        free(buffer);
     }
-    free(buffer);
 
     game_settings = 1;
 }
@@ -308,4 +311,27 @@ char *reading_file(char *way)
     char *n = fgets(buffer, size, fileLibrary);
     fclose(fileLibrary);
     return buffer;
+}
+
+char *strtok_string(char *buffer)
+{
+    char *istr;
+
+    char separator[2] = ",";
+    int i;
+
+    srand(time(NULL));
+    int random = rand() % 34;
+
+    istr = strtok(buffer, separator);
+
+    if (random > 1)
+        for (i = 0; i < random - 1; i++)
+        {
+            if (istr != NULL)
+            {
+                istr = strtok(NULL, separator);
+            }
+        }
+    return istr;
 }
