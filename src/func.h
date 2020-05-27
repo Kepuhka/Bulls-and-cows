@@ -31,5 +31,6 @@ void game_number(int a[], int b[], int *bull, int *cow);
 void string(const char *str, const char str2[], char str3[], int bull, int cow);
 char *reading_file(char *way);
 char *strtok_string(char *buffer);
+int check_user_word(const char userWord[], const int num_length);
 
 #endif

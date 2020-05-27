@@ -227,6 +227,26 @@ void append_item_number(GtkWidget *widget, gpointer entry)
 
 void append_item_word(GtkWidget *widget, gpointer entry)
 {
+    GtkListStore *store;
+    GtkTreeIter iter;
+
+    const char *str = gtk_entry_get_text(entry);
+
+    store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(list)));
+    gtk_list_store_append(store, &iter);
+
+    if (check_user_word(str, num_length) == 0)
+    {
+        const char *fail = "Слово введено правильно!";
+        gtk_list_store_set(store, &iter, LIST_ITEM, fail, -1);
+    }
+    else
+    {
+        const char *fail = "Слово введено неправильно!";
+        gtk_list_store_set(store, &iter, LIST_ITEM, fail, -1);
+    }
+
+    gtk_entry_set_text(entry, "");
 }
 
 void init_list(GtkWidget *list)
@@ -334,4 +354,33 @@ char *strtok_string(char *buffer)
             }
         }
     return istr;
+}
+
+int check_user_word(const char userWord[], const int num_length)
+{
+    unsigned int i, j;
+    int count = 0;
+
+    for (i = 0; i < strlen(userWord); i++)
+    {
+        if (userWord[i] < 'a' || userWord[i] > 'z')
+            return 1;
+        count++;
+    }
+
+    if (count != num_length)
+        return 1;
+
+    for (i = 0; i < strlen(userWord); i++)
+    {
+        for (j = 0; j < strlen(userWord); j++)
+        {
+            if (userWord[i] == userWord[j] && i != j)
+            {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
 }
