@@ -8,6 +8,22 @@ void destroy(GtkWidget *widget, gpointer data)
 {
     gtk_main_quit();
 }
+void output_error()
+{
+    GtkWidget *window;
+    GtkListStore *store;
+    GtkWidget *label;
+    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    label = gtk_label_new("Ошибка!");
+    gtk_window_set_title(GTK_WINDOW(window), "");
+    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+    gtk_window_set_default_size(GTK_WINDOW(window), 230, 50);
+    gtk_window_set_keep_above(GTK_WINDOW(window), TRUE);
+    gtk_window_set_modal(GTK_WINDOW(window), TRUE);
+
+    gtk_container_add(GTK_CONTAINER(window), label);
+    gtk_widget_show_all(window);
+}
 
 void close_settings(GtkWidget *widget, gpointer data)
 {
@@ -142,12 +158,18 @@ void word_settings(GtkMenuItem *menu_item, gpointer data)
     if (num_length == 3)
     {
         buffer = reading_file(way_free_file);
-        word_rand = strtok_string(buffer);
+        if (buffer == NULL)
+            output_error();
+        else
+            word_rand = strtok_string(buffer);
     }
     if (num_length == 4)
     {
         buffer = reading_file(way_four_file);
-        word_rand = strtok_string(buffer);
+        if (buffer == NULL)
+            output_error();
+        else
+            word_rand = strtok_string(buffer);
     }
 
     game_settings = 1;
