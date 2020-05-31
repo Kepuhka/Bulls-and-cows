@@ -25,6 +25,26 @@ void output_error()
     gtk_widget_show_all(window);
 }
 
+void show_rules_number()
+{
+    GtkWidget *window;
+    GtkWidget *label;
+    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    label = gtk_label_new(" Компьютер задумывает n различных\n цифр от 0 до 9."
+                          "Игрок делает ходы,\n чтобы узнать эти цифры и их порядок.\n Каждый ход состоит из n цифр,"
+                          "\n 0 может стоять на первом месте.\n В ответ компьютер показывает число\n отгаданных цифр, стоящих "
+                          "на своих\n местах (число быков) и число отгаданных \n цифр, стоящих не на своих местах\n (число коров).\n"
+                          " n - выбранное кол-во цифр в числе\n");
+    gtk_window_set_title(GTK_WINDOW(window), "Правила игры с числами ");
+    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+    gtk_window_set_default_size(GTK_WINDOW(window), 230, 50);
+    gtk_window_set_keep_above(GTK_WINDOW(window), TRUE);
+    gtk_window_set_modal(GTK_WINDOW(window), TRUE);
+
+    gtk_container_add(GTK_CONTAINER(window), label);
+    gtk_widget_show_all(window);
+}
+
 void close_settings(GtkWidget *widget, gpointer data)
 {
     gtk_widget_destroy(data);
