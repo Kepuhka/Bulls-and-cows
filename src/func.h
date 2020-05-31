@@ -16,6 +16,9 @@ GtkWidget *list;
 GtkWidget *entry;
 
 void destroy(GtkWidget *widget, gpointer data);
+void output_error();
+void show_rules_number();
+void show_rules_word();
 void number_activate(GtkMenuItem *menu_item, gpointer data);
 void settings(GtkWidget *widget, gpointer entry);
 void word_activate(GtkMenuItem *menu_item, gpointer data);

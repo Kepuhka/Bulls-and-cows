@@ -14,10 +14,11 @@ int main(int argc, char *argv[])
     GtkWidget *settingMenu, *setting;
     GtkWidget *sep;
     GtkWidget *num, *word;
+    GtkWidget *num_rules, *word_rules;
     GtkWidget *quitMi;
     GtkWidget *help_m, *help_menu;
     GtkWidget *menubar1;
-    GtkWidget *rulesMi;
+    GtkWidget *rules_menu, *rulesMi;
 
     GtkTreeSelection *selection;
 
@@ -59,11 +60,19 @@ int main(int argc, char *argv[])
 
     help_menu = gtk_menu_new();
     help_m = gtk_menu_item_new_with_label("Помощь");
+
+    rules_menu = gtk_menu_new();
     rulesMi = gtk_menu_item_new_with_label("Правила");
+    num_rules = gtk_menu_item_new_with_label("Игра с числами");
+    word_rules = gtk_menu_item_new_with_label("Игра со словами");
 
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(setting), settingMenu);
     gtk_menu_shell_append(GTK_MENU_SHELL(settingMenu), num);
     gtk_menu_shell_append(GTK_MENU_SHELL(settingMenu), word);
+
+    gtk_menu_item_set_submenu(GTK_MENU_ITEM(rulesMi), rules_menu);
+    gtk_menu_shell_append(GTK_MENU_SHELL(rules_menu), num_rules);
+    gtk_menu_shell_append(GTK_MENU_SHELL(rules_menu), word_rules);
 
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(game_m), game_menu);
     gtk_menu_shell_append(GTK_MENU_SHELL(game_menu), setting);
@@ -91,6 +100,8 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(word), "activate", G_CALLBACK(word_activate), NULL);
     g_signal_connect(G_OBJECT(button_ok), "clicked", G_CALLBACK(settings), entry);
     g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(destroy), NULL);
+    g_signal_connect(G_OBJECT(num_rules), "activate", G_CALLBACK(show_rules_number), NULL);
+    g_signal_connect(G_OBJECT(word_rules), "activate", G_CALLBACK(show_rules_word), NULL);
 
     gtk_widget_show_all(window);
     gtk_main();
