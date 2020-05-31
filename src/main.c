@@ -101,6 +101,7 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(button_ok), "clicked", G_CALLBACK(settings), entry);
     g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(destroy), NULL);
     g_signal_connect(G_OBJECT(num_rules), "activate", G_CALLBACK(show_rules_number), NULL);
+    g_signal_connect(G_OBJECT(word_rules), "activate", G_CALLBACK(show_rules_word), NULL);
 
     gtk_widget_show_all(window);
     gtk_main();

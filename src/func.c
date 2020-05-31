@@ -45,6 +45,26 @@ void show_rules_number()
     gtk_widget_show_all(window);
 }
 
+void show_rules_word()
+{
+    GtkWidget *window;
+    GtkWidget *label;
+    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    label = gtk_label_new(" Компьютер задумывает слово из n букв\n"
+                          " Игрок делает ходы, чтобы узнать эти\n буквы и их порядок. Каждый ход\n состоит из n букв."
+                          "\n В ответ компьютер показывает число\n отгаданных букв, стоящих "
+                          "на своих\n местах (число быков) и число отгаданных \n букв, стоящих не на своих местах\n (число коров).\n"
+                          " n - выбранное кол-во букв в слове\n");
+    gtk_window_set_title(GTK_WINDOW(window), "Правила игры с числами ");
+    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+    gtk_window_set_default_size(GTK_WINDOW(window), 230, 50);
+    gtk_window_set_keep_above(GTK_WINDOW(window), TRUE);
+    gtk_window_set_modal(GTK_WINDOW(window), TRUE);
+
+    gtk_container_add(GTK_CONTAINER(window), label);
+    gtk_widget_show_all(window);
+}
+
 void close_settings(GtkWidget *widget, gpointer data)
 {
     gtk_widget_destroy(data);
