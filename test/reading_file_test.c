@@ -11,7 +11,7 @@
 CTEST(reading_file, 1)
 {
 
-    char str[] = "../../src/LibraryFreeWords.txt";
+    char str[] = "src/LibraryFreeWords.txt";
     char *result_buffer = reading_file(str);
 
     char expected_buffer[] = "fox,dog,cat,sea,sky,low,son,sun,wet,red,can,car,bed,bag,air,sit,big,hot,fly,try,man,die,may,day,toy,one,two,six,ten,lie,pen,paw,owl,oil";
@@ -22,7 +22,7 @@ CTEST(reading_file, 1)
 CTEST(reading_file, 2)
 {
 
-    char str[] = "../../src/LibraryFourWords.txt";
+    char str[] = "src/LibraryFourWords.txt";
     char *result_buffer = reading_file(str);
 
     char expected_buffer[] = "cafe,bank,shop,road,stop,path,park,lake,sand,flat,sofa,oven,meat,pork,lamb,fish,dark,corn,soup,rice,salt,pear,plum,cake,soda,wine,milk,curd,dish,fork,meal,tram,ship,time";
