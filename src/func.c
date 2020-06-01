@@ -1,6 +1,6 @@
 #include "func.h"
 
-void destroy(GtkWidget *widget)
+void destroy(GtkWidget* widget)
 {
     gtk_main_quit();
     UNUSED(widget);
@@ -8,8 +8,8 @@ void destroy(GtkWidget *widget)
 
 void output_error()
 {
-    GtkWidget *window;
-    GtkWidget *label;
+    GtkWidget* window;
+    GtkWidget* label;
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     label = gtk_label_new("Ошибка!");
@@ -23,13 +23,13 @@ void output_error()
     gtk_widget_show_all(window);
 }
 
-void close_settings(GtkWidget *widget, gpointer data)
+void close_settings(GtkWidget* widget, gpointer data)
 {
     gtk_widget_destroy(data);
     UNUSED(widget);
 }
 
-void settings(GtkWidget *widget, gpointer entry)
+void settings(GtkWidget* widget, gpointer entry)
 {
     if (game_settings == 0)
         append_item_number(widget, entry);
@@ -37,14 +37,15 @@ void settings(GtkWidget *widget, gpointer entry)
         append_item_word(widget, entry);
 }
 
-void init_list(GtkWidget *list)
+void init_list(GtkWidget* list)
 {
-    GtkCellRenderer *renderer;
-    GtkTreeViewColumn *column;
-    GtkListStore *store;
+    GtkCellRenderer* renderer;
+    GtkTreeViewColumn* column;
+    GtkListStore* store;
 
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes("Input_text", renderer, "text", LIST_ITEM, NULL);
+    column = gtk_tree_view_column_new_with_attributes(
+            "Input_text", renderer, "text", LIST_ITEM, NULL);
 
     gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 
@@ -53,29 +54,24 @@ void init_list(GtkWidget *list)
     g_object_unref(store);
 }
 
-void string(const char *str, const char str2[], char str3[], int bull, int cow)
+void string(const char* str, const char str2[], char str3[], int bull, int cow)
 {
     int i;
-    for (i = 0; i < num_length; i++)
-    {
+    for (i = 0; i < num_length; i++) {
         str3[i] = str[i];
     }
 
     strcat(str3, str2);
     i = 0;
-    while (str3[i] != '\0')
-    {
-        if (str3[i] == '*')
-        {
+    while (str3[i] != '\0') {
+        if (str3[i] == '*') {
             str3[i] = bull + '0';
             break;
         }
         i++;
     }
-    while (str3[i] != '\0')
-    {
-        if (str3[i] == '*')
-        {
+    while (str3[i] != '\0') {
+        if (str3[i] == '*') {
             str3[i] = cow + '0';
             break;
         }

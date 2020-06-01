@@ -3,5 +3,6 @@ install:
   - sudo apt-get install gtk2.0
 compiler: gcc
 script: 
-  - make
-  - make test
+  - make && make test
+  - git ls-files src/*.c | xargs clang-format -i && git diff --exit-code
+  - git ls-files test/*.c | xargs clang-format -i && git diff --exit-code

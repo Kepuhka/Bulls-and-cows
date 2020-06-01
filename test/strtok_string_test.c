@@ -1,11 +1,13 @@
-#include "../src/func.h"
 #include "../ctest/ctest.h"
+#include "../src/func.h"
 
 /* num_length - A global variable containing the number of digits in a guessable number */
 
 CTEST(strtok_string, 1)
 {
-    char buffer[150] = "fox,dog,cat,sea,sky,low,son,sun,wet,red,can,car,bed,bag,air,sit,big,eye,hot,fly,try,man,die,may,day,toy,one,two,six,ten,lie,pen,paw,owl,oil";
+    char buffer[150]
+            = "fox,dog,cat,sea,sky,low,son,sun,wet,red,can,car,bed,bag,air,sit,big,eye,hot,fly,try,"
+              "man,die,may,day,toy,one,two,six,ten,lie,pen,paw,owl,oil";
 
     size_t rezult_size_str = strlen(strtok_string(buffer));
 
@@ -15,7 +17,10 @@ CTEST(strtok_string, 1)
 }
 CTEST(strtok_string, 2)
 {
-    char buffer[200] = "cafe,bank,shop,road,stop,path,park,lake,sand,flat,sofa,oven,meat,pork,lamb,fish,dark,corn,soup,rice,salt,pear,plum,cake,soda,wine,milk,curd,dish,fork,meal,tram,ship,time";
+    char buffer[200]
+            = "cafe,bank,shop,road,stop,path,park,lake,sand,flat,sofa,oven,meat,pork,lamb,fish,"
+              "dark,corn,soup,rice,salt,pear,plum,cake,soda,wine,milk,curd,dish,fork,meal,tram,"
+              "ship,time";
 
     size_t rezult_size_str = strlen(strtok_string(buffer));
 

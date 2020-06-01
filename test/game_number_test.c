@@ -1,5 +1,5 @@
-#include "../src/func.h"
 #include "../ctest/ctest.h"
+#include "../src/func.h"
 
 /* num_length - A global variable containing the number of digits in a guessable number */
 

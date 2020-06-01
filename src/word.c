@@ -1,24 +1,22 @@
 #include "func.h"
 
-void word_settings(GtkMenuItem *menu_item, gpointer data)
+void word_settings(GtkMenuItem* menu_item, gpointer data)
 {
-    char *buffer;
+    char* buffer;
     char way_free_file[] = "src/LibraryFreeWords.txt";
     char way_four_file[] = "src/LibraryFourWords.txt";
 
-    num_length = atoi((char *)data);
+    num_length = atoi((char*)data);
     gtk_entry_set_max_length(GTK_ENTRY(entry), num_length);
 
-    if (num_length == 3)
-    {
+    if (num_length == 3) {
         buffer = reading_file(way_free_file);
         if (buffer == NULL)
             output_error();
         else
             word_rand = strtok_string(buffer);
     }
-    if (num_length == 4)
-    {
+    if (num_length == 4) {
         buffer = reading_file(way_four_file);
         if (buffer == NULL)
             output_error();
@@ -31,14 +29,17 @@ void word_settings(GtkMenuItem *menu_item, gpointer data)
 
 void show_rules_word()
 {
-    GtkWidget *window;
-    GtkWidget *label;
+    GtkWidget* window;
+    GtkWidget* label;
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    label = gtk_label_new(" Компьютер задумывает слово из n букв\n"
-                          " Игрок делает ходы, чтобы узнать эти\n буквы и их порядок. Каждый ход\n состоит из n букв."
-                          "\n В ответ компьютер показывает число\n отгаданных букв, стоящих "
-                          "на своих\n местах (число быков) и число отгаданных \n букв, стоящих не на своих местах\n (число коров).\n"
-                          " n - выбранное кол-во букв в слове\n");
+    label = gtk_label_new(
+            " Компьютер задумывает слово из n букв\n"
+            " Игрок делает ходы, чтобы узнать эти\n буквы и их порядок. Каждый ход\n состоит из n "
+            "букв."
+            "\n В ответ компьютер показывает число\n отгаданных букв, стоящих "
+            "на своих\n местах (число быков) и число отгаданных \n букв, стоящих не на своих "
+            "местах\n (число коров).\n"
+            " n - выбранное кол-во букв в слове\n");
     gtk_window_set_title(GTK_WINDOW(window), "Правила игры с числами ");
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     gtk_window_set_default_size(GTK_WINDOW(window), 230, 50);
@@ -49,11 +50,11 @@ void show_rules_word()
     gtk_widget_show_all(window);
 }
 
-void word_activate(GtkMenuItem *menu_item)
+void word_activate(GtkMenuItem* menu_item)
 {
-    GtkWidget *window;
+    GtkWidget* window;
     GtkWidget *vbox, *hbox;
-    GtkWidget *label;
+    GtkWidget* label;
     GtkWidget *button_3words, *button_4words;
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -88,17 +89,16 @@ void word_activate(GtkMenuItem *menu_item)
     UNUSED(menu_item);
 }
 
-void append_item_word(GtkWidget *widget, gpointer entry)
+void append_item_word(GtkWidget* widget, gpointer entry)
 {
-    GtkListStore *store;
+    GtkListStore* store;
     GtkTreeIter iter;
     const char str2[] = ": Быков *, коров *";
     char str3[50] = "\0";
     const char str4[] = "Вы выиграли!";
-    const char *str = gtk_entry_get_text(entry);
+    const char* str = gtk_entry_get_text(entry);
 
-    struct result
-    {
+    struct result {
         int bull;
         int cow;
     } num;
@@ -106,22 +106,16 @@ void append_item_word(GtkWidget *widget, gpointer entry)
     store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(list)));
     gtk_list_store_append(store, &iter);
 
-    if (check_user_word(str, num_length) == 0)
-    {
+    if (check_user_word(str, num_length) == 0) {
         word_comparison(word_rand, str, &num.bull, &num.cow);
-        if (num.bull == num_length)
-        {
+        if (num.bull == num_length) {
             gtk_list_store_set(store, &iter, LIST_ITEM, str4, -1);
-        }
-        else
-        {
+        } else {
             string(str, str2, str3, num.bull, num.cow);
             gtk_list_store_set(store, &iter, LIST_ITEM, str3, -1);
         }
-    }
-    else
-    {
-        const char *fail = "Слово введено неправильно!";
+    } else {
+        const char* fail = "Слово введено неправильно!";
         gtk_list_store_set(store, &iter, LIST_ITEM, fail, -1);
     }
 
@@ -129,25 +123,25 @@ void append_item_word(GtkWidget *widget, gpointer entry)
     UNUSED(widget);
 }
 
-char *reading_file(char *way)
+char* reading_file(char* way)
 {
-    FILE *fileLibrary;
+    FILE* fileLibrary;
 
     fileLibrary = fopen(way, "r");
     if (fileLibrary == NULL)
         return NULL;
 
     const int size = 200;
-    char *buffer;
-    buffer = (char *)malloc(size * sizeof(char));
+    char* buffer;
+    buffer = (char*)malloc(size * sizeof(char));
     fgets(buffer, size, fileLibrary);
     fclose(fileLibrary);
     return buffer;
 }
 
-char *strtok_string(char *buffer)
+char* strtok_string(char* buffer)
 {
-    char *istr;
+    char* istr;
 
     char separator[2] = ",";
     int i;
@@ -158,10 +152,8 @@ char *strtok_string(char *buffer)
     istr = strtok(buffer, separator);
 
     if (random > 1)
-        for (i = 0; i < random - 1; i++)
-        {
-            if (istr != NULL)
-            {
+        for (i = 0; i < random - 1; i++) {
+            if (istr != NULL) {
                 istr = strtok(NULL, separator);
             }
         }
@@ -173,8 +165,7 @@ int check_user_word(const char userWord[], const int num_length)
     unsigned int i, j;
     int count = 0;
 
-    for (i = 0; i < strlen(userWord); i++)
-    {
+    for (i = 0; i < strlen(userWord); i++) {
         if (userWord[i] < 'a' || userWord[i] > 'z')
             return 1;
         count++;
@@ -183,12 +174,9 @@ int check_user_word(const char userWord[], const int num_length)
     if (count != num_length)
         return 1;
 
-    for (i = 0; i < strlen(userWord); i++)
-    {
-        for (j = 0; j < strlen(userWord); j++)
-        {
-            if (userWord[i] == userWord[j] && i != j)
-            {
+    for (i = 0; i < strlen(userWord); i++) {
+        for (j = 0; j < strlen(userWord); j++) {
+            if (userWord[i] == userWord[j] && i != j) {
                 return 1;
             }
         }
@@ -197,16 +185,14 @@ int check_user_word(const char userWord[], const int num_length)
     return 0;
 }
 
-void word_comparison(const char randomWord[], const char userWord[], int *bull, int *cow)
+void word_comparison(const char randomWord[], const char userWord[], int* bull, int* cow)
 {
     unsigned int i, j;
     *bull = 0;
     *cow = 0;
 
-    for (i = 0; i < strlen(randomWord); i++)
-    {
-        for (j = 0; j < strlen(randomWord); j++)
-        {
+    for (i = 0; i < strlen(randomWord); i++) {
+        for (j = 0; j < strlen(randomWord); j++) {
             if (randomWord[i] == userWord[j] && i == j)
                 (*bull)++;
             if (randomWord[i] == userWord[j] && i != j)

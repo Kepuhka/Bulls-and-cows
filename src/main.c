@@ -1,23 +1,22 @@
 #include "func.h"
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
-    GtkWidget *vbox;
-    GtkWidget *hbox;
-    GtkWidget *window;
-    GtkWidget *button_ok;
-    GtkWidget *label;
-    GtkWidget *sw;
-    GtkWidget *menubar;
+    GtkWidget* vbox;
+    GtkWidget* hbox;
+    GtkWidget* window;
+    GtkWidget* button_ok;
+    GtkWidget* label;
+    GtkWidget* sw;
+    GtkWidget* menubar;
     GtkWidget *game_menu, *game_m;
     GtkWidget *settingMenu, *setting;
-    GtkWidget *sep;
+    GtkWidget* sep;
     GtkWidget *num, *word;
     GtkWidget *num_rules, *word_rules;
-    GtkWidget *quitMi;
+    GtkWidget* quitMi;
     GtkWidget *help_m, *help_menu;
     GtkWidget *rules_menu, *rulesMi;
-
 
     gtk_init(&argc, &argv);
 
@@ -31,7 +30,8 @@ int main(int argc, char *argv[])
     list = gtk_tree_view_new();
     gtk_container_add(GTK_CONTAINER(sw), list);
 
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+    gtk_scrolled_window_set_policy(
+            GTK_SCROLLED_WINDOW(sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
     gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(sw), GTK_SHADOW_ETCHED_IN);
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(list), FALSE);
 
