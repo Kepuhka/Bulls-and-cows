@@ -1,6 +1,10 @@
 #include <gtk/gtk.h>
 #include "../ctest/ctest.h"
 #include "../src/func.h"
+#include "../src/word.h"
+#include "../src/number.h"
+
+/* num_length - A global variable containing the number of digits in a guessable number */
 
 CTEST(check_user_word, 1)
 {

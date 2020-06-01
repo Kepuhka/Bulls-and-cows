@@ -12,7 +12,7 @@ test: comp install
 
 comp: object
 	$(DIR)\
-	$(CC) $(LDFLAGS) $(OBJECT) main.o ../src/func.o -o test `pkg-config --cflags --libs gtk+-2.0`
+	$(CC) $(LDFLAGS) $(OBJECT) main.o ../src/func.o ../src/word.o ../src/number.o -o test `pkg-config --cflags --libs gtk+-2.0`
 	
 install:
 	cd build/test;\
@@ -24,6 +24,8 @@ object: clean ctest/ctest.h
 	$(CC) $(CCFLAGS) -c -o build/test/number_splitting_test.o test/number_splitting_test.c
 	$(CC) $(CCFLAGS) -c -o build/test/string_test.o test/string_test.c
 	$(CC) $(CCFLAGS) -c -o build/src/func.o src/func.c
+	$(CC) $(CCFLAGS) -c -o build/src/word.o src/word.c
+	$(CC) $(CCFLAGS) -c -o build/src/number.o src/number.c
 	$(CC) $(CCFLAGS) -c -o build/test/reading_file_test.o test/reading_file_test.c
 	$(CC) $(CCFLAGS) -c -o build/test/strtok_string_test.o test/strtok_string_test.c
 	$(CC) $(CCFLAGS) -c -o build/test/check_user_word_test.o test/check_user_word_test.c
