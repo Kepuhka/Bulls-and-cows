@@ -1,5 +1,12 @@
 #ifndef FUNC_H
 #define FUNC_H
+#define UNUSED(x) (void)x;
+#include <gtk/gtk.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include "word.h"
+#include "number.h"
 
 enum
 {
@@ -15,7 +22,7 @@ int num_length;
 GtkWidget *list;
 GtkWidget *entry;
 
-void destroy(GtkWidget *widget, gpointer data);
+void destroy(GtkWidget *widget);
 void output_error();
 void settings(GtkWidget *widget, gpointer entry);
 void init_list(GtkWidget *list);

@@ -1,10 +1,4 @@
-#include <gtk/gtk.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 #include "func.h"
-#include "word.h"
-#include "number.h"
 
 void number_settings(GtkMenuItem *menu_item, gpointer data)
 {
@@ -12,6 +6,7 @@ void number_settings(GtkMenuItem *menu_item, gpointer data)
     gtk_entry_set_max_length(GTK_ENTRY(entry), num_length);
     game_settings = 0;
     number_generate();
+    UNUSED(menu_item);
 }
 
 void show_rules_number()
@@ -34,7 +29,7 @@ void show_rules_number()
     gtk_widget_show_all(window);
 }
 
-void number_activate(GtkMenuItem *menu_item, gpointer data)
+void number_activate(GtkMenuItem *menu_item)
 {
     GtkWidget *window;
     GtkWidget *vbox, *hbox;
@@ -72,6 +67,7 @@ void number_activate(GtkMenuItem *menu_item, gpointer data)
 
     gtk_container_add(GTK_CONTAINER(window), vbox);
     gtk_widget_show_all(window);
+    UNUSED(menu_item);
 }
 
 void number_generate()
@@ -161,6 +157,7 @@ void append_item_number(GtkWidget *widget, gpointer entry)
         gtk_list_store_set(store, &iter, LIST_ITEM, fail, -1);
     }
     gtk_entry_set_text(entry, "");
+    UNUSED(widget);
 }
 
 void game_number(int a[], int b[], int *bull, int *cow)

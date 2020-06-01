@@ -1,10 +1,4 @@
-#include <gtk/gtk.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 #include "func.h"
-#include "word.h"
-#include "number.h"
 
 void word_settings(GtkMenuItem *menu_item, gpointer data)
 {
@@ -31,8 +25,8 @@ void word_settings(GtkMenuItem *menu_item, gpointer data)
         else
             word_rand = strtok_string(buffer);
     }
-
     game_settings = 1;
+    UNUSED(menu_item);
 }
 
 void show_rules_word()
@@ -55,11 +49,8 @@ void show_rules_word()
     gtk_widget_show_all(window);
 }
 
-void word_activate(GtkMenuItem *menu_item, gpointer data)
+void word_activate(GtkMenuItem *menu_item)
 {
-    gint size2 = 2;
-    gint size3 = 3;
-
     GtkWidget *window;
     GtkWidget *vbox, *hbox;
     GtkWidget *label;
@@ -94,6 +85,7 @@ void word_activate(GtkMenuItem *menu_item, gpointer data)
 
     gtk_container_add(GTK_CONTAINER(window), vbox);
     gtk_widget_show_all(window);
+    UNUSED(menu_item);
 }
 
 void append_item_word(GtkWidget *widget, gpointer entry)
@@ -134,6 +126,7 @@ void append_item_word(GtkWidget *widget, gpointer entry)
     }
 
     gtk_entry_set_text(entry, "");
+    UNUSED(widget);
 }
 
 char *reading_file(char *way)
@@ -147,7 +140,7 @@ char *reading_file(char *way)
     const int size = 200;
     char *buffer;
     buffer = (char *)malloc(size * sizeof(char));
-    char *n = fgets(buffer, size, fileLibrary);
+    fgets(buffer, size, fileLibrary);
     fclose(fileLibrary);
     return buffer;
 }

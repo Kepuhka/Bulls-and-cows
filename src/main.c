@@ -1,12 +1,9 @@
-#include <gtk/gtk.h>
 #include "func.h"
-#include "word.h"
-#include "number.h"
 
 int main(int argc, char *argv[])
 {
-    GtkWidget *vbox, *vbox1;
-    GtkWidget *hbox, *hbox1;
+    GtkWidget *vbox;
+    GtkWidget *hbox;
     GtkWidget *window;
     GtkWidget *button_ok;
     GtkWidget *label;
@@ -19,10 +16,8 @@ int main(int argc, char *argv[])
     GtkWidget *num_rules, *word_rules;
     GtkWidget *quitMi;
     GtkWidget *help_m, *help_menu;
-    GtkWidget *menubar1;
     GtkWidget *rules_menu, *rulesMi;
 
-    GtkTreeSelection *selection;
 
     gtk_init(&argc, &argv);
 

@@ -2,7 +2,7 @@
 #define NUMBER_H
 
 void show_rules_number();
-void number_activate(GtkMenuItem *menu_item, gpointer data);
+void number_activate(GtkMenuItem *menu_item);
 void append_item_number(GtkWidget *widget, gpointer entry);
 void number_settings(GtkMenuItem *menu_item, gpointer data);
 int number_splitting(const char *str, int number_user[]);

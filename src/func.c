@@ -1,21 +1,16 @@
-#include <gtk/gtk.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 #include "func.h"
-#include "word.h"
-#include "number.h"
 
-void destroy(GtkWidget *widget, gpointer data)
+void destroy(GtkWidget *widget)
 {
     gtk_main_quit();
+    UNUSED(widget);
 }
 
 void output_error()
 {
     GtkWidget *window;
-    GtkListStore *store;
     GtkWidget *label;
+
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     label = gtk_label_new("Ошибка!");
     gtk_window_set_title(GTK_WINDOW(window), "");
@@ -31,6 +26,7 @@ void output_error()
 void close_settings(GtkWidget *widget, gpointer data)
 {
     gtk_widget_destroy(data);
+    UNUSED(widget);
 }
 
 void settings(GtkWidget *widget, gpointer entry)
