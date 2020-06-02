@@ -1,5 +1,12 @@
 #include "func.h"
 
+void clear_list()
+{
+    GtkListStore* store;
+    store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(list)));
+    gtk_list_store_clear(store);
+}
+
 void destroy(GtkWidget* widget)
 {
     gtk_main_quit();

@@ -18,6 +18,7 @@ int num_length;
 GtkWidget* list;
 GtkWidget* entry;
 
+void clear_list();
 void destroy(GtkWidget* widget);
 void output_error();
 void settings(GtkWidget* widget, gpointer entry);

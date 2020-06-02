@@ -25,6 +25,7 @@ void word_settings(GtkMenuItem* menu_item, gpointer data)
     }
     game_settings = 1;
     gtk_widget_set_sensitive(entry, TRUE);
+    clear_list();
     UNUSED(menu_item);
 }
 
@@ -111,6 +112,8 @@ void append_item_word(GtkWidget* widget, gpointer entry)
         word_comparison(word_rand, str, &num.bull, &num.cow);
         if (num.bull == num_length) {
             gtk_list_store_set(store, &iter, LIST_ITEM, str4, -1);
+            gtk_widget_set_sensitive(entry, FALSE);
+            num_length = 0;
         } else {
             string(str, str2, str3, num.bull, num.cow);
             gtk_list_store_set(store, &iter, LIST_ITEM, str3, -1);
