@@ -24,6 +24,7 @@ void word_settings(GtkMenuItem* menu_item, gpointer data)
             word_rand = strtok_string(buffer);
     }
     game_settings = 1;
+    gtk_widget_set_sensitive(entry, TRUE);
     UNUSED(menu_item);
 }
 

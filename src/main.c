@@ -43,6 +43,7 @@ int main(int argc, char* argv[])
     entry = gtk_entry_new();
     gtk_widget_set_size_request(entry, 120, 35);
     gtk_widget_set_size_request(button_ok, 130, 35);
+    gtk_widget_set_sensitive(entry, FALSE);
 
     menubar = gtk_menu_bar_new();
     game_menu = gtk_menu_new();

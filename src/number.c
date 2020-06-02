@@ -6,6 +6,7 @@ void number_settings(GtkMenuItem* menu_item, gpointer data)
     gtk_entry_set_max_length(GTK_ENTRY(entry), num_length);
     game_settings = 0;
     number_generate();
+    gtk_widget_set_sensitive(entry, TRUE);
     UNUSED(menu_item);
 }
 
