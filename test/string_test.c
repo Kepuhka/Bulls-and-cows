@@ -1,7 +1,7 @@
-#include <gtk/gtk.h>
-#include <stdlib.h>
 #include "../ctest/ctest.h"
 #include "../src/func.h"
+
+/* num_length - A global variable containing the number of digits in a guessable number */
 
 CTEST(string, 1)
 {
@@ -13,7 +13,7 @@ CTEST(string, 1)
     int cow = 1;
 
     string(str_number_user, str2, str3, bull, cow);
-    
+
     const char str3_expected[50] = "123: Быков 2, коров 1";
 
     ASSERT_STR(str3_expected, str3);
@@ -29,7 +29,7 @@ CTEST(string, 2)
     int cow = 0;
 
     string(str_number_user, str2, str3, bull, cow);
-    
+
     const char str3_expected[50] = "18759: Быков 5, коров 0";
 
     ASSERT_STR(str3_expected, str3);
@@ -45,12 +45,11 @@ CTEST(string, 3)
     int cow = 4;
 
     string(str_number_user, str2, str3, bull, cow);
-    
+
     const char str3_expected[50] = "1298: Быков 0, коров 4";
 
     ASSERT_STR(str3_expected, str3);
 }
-
 
 CTEST(string, 4)
 {
@@ -62,7 +61,7 @@ CTEST(string, 4)
     int cow = 2;
 
     string(str_number_user, str2, str3, bull, cow);
-    
+
     const char str3_expected[50] = "1298546: Быков 5, коров 2";
 
     ASSERT_STR(str3_expected, str3);

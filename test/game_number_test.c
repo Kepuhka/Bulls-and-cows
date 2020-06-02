@@ -1,5 +1,3 @@
-#include <gtk/gtk.h>
-#include <stdlib.h>
 #include "../ctest/ctest.h"
 #include "../src/func.h"
 
@@ -19,7 +17,7 @@ CTEST(game_number, 1)
     const int expected_bull = 3;
     const int expected_cow = 0;
 
-    ASSERT_EQUAL(expected_bull, result_bull);    
+    ASSERT_EQUAL(expected_bull, result_bull);
     ASSERT_EQUAL(expected_cow, result_cow);
 }
 
@@ -37,7 +35,7 @@ CTEST(game_number, 2)
     const int expected_bull = 0;
     const int expected_cow = 0;
 
-    ASSERT_EQUAL(expected_bull, result_bull);    
+    ASSERT_EQUAL(expected_bull, result_bull);
     ASSERT_EQUAL(expected_cow, result_cow);
 }
 
@@ -55,7 +53,7 @@ CTEST(game_number, 3)
     const int expected_bull = 2;
     const int expected_cow = 1;
 
-    ASSERT_EQUAL(expected_bull, result_bull);    
+    ASSERT_EQUAL(expected_bull, result_bull);
     ASSERT_EQUAL(expected_cow, result_cow);
 }
 
@@ -73,11 +71,6 @@ CTEST(game_number, 4)
     const int expected_bull = 0;
     const int expected_cow = 5;
 
-    ASSERT_EQUAL(expected_bull, result_bull);    
+    ASSERT_EQUAL(expected_bull, result_bull);
     ASSERT_EQUAL(expected_cow, result_cow);
 }
-
-
-
-
-
